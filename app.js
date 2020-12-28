@@ -74,6 +74,17 @@ app.get("/campgrounds/new",function(req,res){
     res.render("new");
 });
 
+app.get("/campgrounds/:id",function(req,res){
+    //from db 
+    campground.findById(req.params.id, function(err, foundcampground){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("show",{campgrounds:foundcampground});
+        }
+    })
+});
+
 app.listen(3000,function(){
     console.log("server is listening");
 });
