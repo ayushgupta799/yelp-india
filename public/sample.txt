@@ -1,0 +1,5 @@
+// var campgrounds=[
+//     {name :"Spiti Valley" ,image :"https://i.imgur.com/vqEsn6o.jpg?1"},
+//     {name :"Chandratal lake", image :"https://i.imgur.com/G5dU3Zx.jpg"},
+//     {name :"Solang Valley" ,image :"https://i.imgur.com/FDhzVukg.jpg"}
+// ];
