@@ -1,5 +1,17 @@
 <% include partials/header %>
-<h1><%= campgrounds.name %></h1>
-<img src="<%= campground.image %>">
-<p><%= campground.description %></p>
+    <div class="ui main text container segment">
+        <div class="ui huge header">
+            <%= campgrounds.name %>
+        </div>
+        <div class="ui top attached">
+            <div class="item">
+                <img class="ui centered rounded image" src="<%= campgrounds.image %> ">
+                <div class="description">
+                    <p>
+                        <%= campgrounds.description %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 <% include partials/footer %>

@@ -2,7 +2,8 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var request = require("request");
-var mongoose = require("mongoose");
+var mongoose = require("mongoose"),
+    campground = require("./models/campground");
 
 const connurl = "mongodb+srv://admin:qwerty123@cluster0.pn1m3.mongodb.net/yelp?retryWrites=true&w=majority";
 mongoose.connect(connurl,{
@@ -11,12 +12,7 @@ mongoose.connect(connurl,{
     useUnifiedTopology: true,
 });
 // schema
-var campgroundschema = new mongoose.Schema({
-    name : String,
-    image : String,
-    description : String
-});
-var campground= mongoose.model("campground" , campgroundschema);
+
 
 // campground.create({
 //     name : "Solang Valley",
@@ -38,7 +34,7 @@ app.set("view engine","ejs");
 //     {name :"Solang Valley" ,image :"https://i.imgur.com/FDhzVukg.jpg"}
 // ];
 app.get("/",function(req,res){
-    res.render("landing");
+    res.redirect("campgrounds");
 });
 app.get("/campgrounds",function(req,res){
     //from db 
