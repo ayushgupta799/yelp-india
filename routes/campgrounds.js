@@ -3,7 +3,6 @@ var router = express.Router();
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
 var mongoose = require("mongoose");
-
 //index
 router.get("/",function(req,res){
     //from db 
@@ -15,7 +14,6 @@ router.get("/",function(req,res){
         }
     });
 });
-
 //create
 router.post("/",function(req,res){
     var newCampground ={
@@ -31,7 +29,6 @@ router.post("/",function(req,res){
         }
     });
 });
-
 //new
 router.get("/new",function(req,res){
     res.render("campgrounds/new");
@@ -39,7 +36,6 @@ router.get("/new",function(req,res){
 
 //show
 router.get("/:id",function(req,res){
-    //from db 
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundcampground){
         if(err){
             console.log(err);
