@@ -2,7 +2,8 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var passport = require("passport");
-var LocalStrategy = require("passport-local");
+var LocalStrategy = require("passport-local"),
+    flash         = require("connect-flash");
 var methodOverride = require("method-override");
 var request = require("request");
 var mongoose = require("mongoose"),
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "public"));
 app.set("view engine","ejs");
 app.use(methodOverride("_method"));
+app.use(flash());
 //passport configuration
 app.use(require("express-session")({
     secret : "hello",
@@ -39,6 +41,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.error       = req.flash("error");
+    res.locals.success     = req.flash("success");
     next();
 });
 app.use(indexRoutes);

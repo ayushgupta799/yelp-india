@@ -4,6 +4,8 @@ var passport = require("passport");
 var User = require("../models/user");
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
+var middleware = require("../middleware");
+
 
 //root route
 router.get("/",function(req,res){
@@ -20,11 +22,13 @@ router.post("/register", function(req,res){
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            console.log(err);
+            console.log(err.body);
+            req.flash("error", err.message);
             return res.render("register")
         }
         passport.authenticate("Local")(req, res , function(){
-            res.redirect("/login")
+            req.flash("success","Welcome to YelpCamp " + user.username);
+            res.redirect("/campgrounds")
         });
     });
 });
@@ -42,15 +46,8 @@ router.post("/login" , passport.authenticate("local" ,
 //logout
 router.get("/logout", function(req,res){
     req.logout();
+    req.flash("success", "logged out :(");
     res.redirect("/campgrounds");
 });
-
-//middleware
-function isLoggedIn(req,res , next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
 module.exports = router;
