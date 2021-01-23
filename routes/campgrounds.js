@@ -3,6 +3,7 @@ var router = express.Router();
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
 var mongoose = require("mongoose");
+const campground = require("../models/campground");
 //index
 router.get("/",function(req,res){
     //from db 
@@ -48,7 +49,33 @@ router.get("/:id",function(req,res){
         }   
     })
 });
+//edit cg route
+router.get("/:id/edit",checkCampgroundOwnership, function(req,res){
+    Campground.findById(req.params.id , function(err , foundcampground){
+        res.render("campgrounds/edit", {campground: foundcampground});
+    });
 
+});
+//update cg route
+router.put("/:id",checkCampgroundOwnership ,function(req,res){
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground , function(err, updatedCampground){
+        if(err){
+            res.redirect("/campgrounds");
+        } else {
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+// destroy 
+router.delete("/:id",checkCampgroundOwnership, function(req,res){
+    Campground.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/campgrounds");
+        } else {
+            res.redirect("/campgrounds");
+        }
+    })
+});
 //middleware
 function isLoggedIn(req,res , next){
     if(req.isAuthenticated()){
@@ -56,4 +83,21 @@ function isLoggedIn(req,res , next){
     }
     res.redirect("/login");
 }
+ function checkCampgroundOwnership(req,res,next){
+    if(req.isAuthenticated()){
+        Campground.findById(req.params.id , function(err , foundcampground){
+            if(err){
+                res.redirect("back");
+            } else {
+                if(foundcampground.author.id.equals(req.user._id)){
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+ }
 module.exports = router;

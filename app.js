@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
+var methodOverride = require("method-override");
 var request = require("request");
 var mongoose = require("mongoose"),
     User = require("./models/user");
@@ -23,6 +24,7 @@ mongoose.connect(url,{
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "public"));
 app.set("view engine","ejs");
+app.use(methodOverride("_method"));
 //passport configuration
 app.use(require("express-session")({
     secret : "hello",
