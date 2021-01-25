@@ -9,7 +9,7 @@ var middleware = require("../middleware");
 
 //root route
 router.get("/",function(req,res){
-    res.redirect("campgrounds");
+    res.render("landing");
 });
 
 //auth route
@@ -22,7 +22,7 @@ router.post("/register", function(req,res){
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            console.log(err.body);
+            console.log(err);
             req.flash("error", err.message);
             return res.render("register")
         }
