@@ -15,8 +15,7 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index");
 
 //connecting to atlas mongoDB
-const url = "mongodb+srv://admin:qwerty123@cluster0.pn1m3.mongodb.net/yelp?retryWrites=true&w=majority";
-mongoose.connect(url,{
+mongoose.connect(process.env.DATABASEURL,{
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
