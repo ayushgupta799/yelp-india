@@ -8,3 +8,5 @@ to run the website on the local server file named app.js need to be run.
 ### tech stacks used : NodeJS MongoDB Express Bootstrap SemanticUI 
 
 ![](https://github.com/ayushgupta799/yelp-india/blob/main/assets/Web%20capture_10-2-2021_24040_rocky-lowlands-15592.herokuapp.com.jpeg)
+![](https://github.com/ayushgupta799/yelp-india/blob/main/assets/Web%20capture_10-2-2021_2410_rocky-lowlands-15592.herokuapp.com.jpeg)
+![](https://github.com/ayushgupta799/yelp-india/blob/main/assets/Web%20capture_10-2-2021_24122_rocky-lowlands-15592.herokuapp.com.jpeg)
